@@ -23,8 +23,6 @@ namespace Lexicon_Exercise_3
 
         public Application()
         {           
-            List<Motorcycle> motorcycles = new List<Motorcycle>();
-            motorcycles.Add(new Car());
         }
 
         public void Run()
