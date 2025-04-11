@@ -2,6 +2,20 @@
 
 namespace Lexicon_Exercise_3
 {
+    // Svar på frågor:
+    // * Vad händer om du försöker lägga till en Car i en lista av Motorcycle?
+    //     - Det går inte. Kan ha en lista av vehicle och
+    //     lägga till både car och motorcycle men inte tvärt om.
+    // * Vilken typ bör en lista vara för att rymma alla fordonstyper?
+    //     - Vehicle
+    // * Kommer du åt metoden Clean() från en lista med typen List<Vehicle>?
+    //     - Ja, om någon av objekten i listan är ICleanable.
+    // * Vad är fördelarna med att använda ett interface här istället för arv?
+    //     - C# stödjer inte multiple inheritance, men är möjligt
+    //       för en klass att ärva flera interfaces.
+    //     - Interfaces är mindre strikt än arv. Kan användas för att säga åt en
+    //       klass att något måste implementeras, men bryr sig inte om hur.
+
     class Program
     {
         static void Main()
