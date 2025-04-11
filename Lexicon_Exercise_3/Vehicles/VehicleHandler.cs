@@ -99,9 +99,10 @@ namespace Lexicon_Exercise_3
         }
 
 
-        void RemoveVehicle()
+        public void RemoveVehicle(int index)
         {
-            
+            if(index >= 0 && index < vehicles.Count)
+                vehicles.RemoveAt(index);
         }
 
         void EditVehicle(VehicleType type)

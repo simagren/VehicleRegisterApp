@@ -44,7 +44,11 @@ namespace Lexicon_Exercise_3
                 else Console.WriteLine(data[i]);
             }
 
-            Console.WriteLine("\nPress 'Enter' to select/apply, 'Backspace' to go back or 'ESC' to exit");
+            Console.WriteLine("\n\n-- Menu Navigation Keys --");
+            Console.WriteLine("Press 'Enter' to select/apply");
+            Console.WriteLine("Press 'Backspace' to go back");
+            Console.WriteLine("Press 'DEL' to delete item in view mode");
+            Console.WriteLine("Press 'ESC' to exit program");
         }
 
         public MenuNode TryGetNext(int i)

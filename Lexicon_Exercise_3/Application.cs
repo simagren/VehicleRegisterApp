@@ -33,17 +33,12 @@ namespace Lexicon_Exercise_3
                 try
                 {
                     currentMenu.Print();
-                    Console.WriteLine("cur: " + menuIndex);
-                    Console.WriteLine("prev: " + prevMenuIndex);
-                    Console.WriteLine("menuOpt: " + menuOption);
                     if (menuOption == MenuOptions.Add)
                     {   if (EnterVehicleInfo())
                             Console.WriteLine("Success!");
-                        else Console.WriteLine("Failure");
                     }               
                     HandleNavigationInput();
                     currentMenu.highlightIndex = menuIndex;
-
                 }
                 catch (ArgumentException e) 
                 {
@@ -73,6 +68,9 @@ namespace Lexicon_Exercise_3
                     currentMenu = currentMenu.TryGetPrev();
                     menuIndex = 0;
                     break;
+                case ConsoleKey.Delete:
+                    if (menuOption == MenuOptions.View) vehicleHandler.RemoveVehicle(menuIndex);
+                    break;
                 case ConsoleKey.Escape:
                     run = false;
                     break;
@@ -87,7 +85,6 @@ namespace Lexicon_Exercise_3
         bool EnterVehicleInfo()
         {
             int chosenVehicle = prevMenuIndex;
-            Console.WriteLine(menuIndex);
             Console.CursorVisible = true;
             List<string> vehicleInput = new List<string>();
             for (int i=0; i<=currentMenu.maxIndex; i++)
@@ -139,7 +136,7 @@ namespace Lexicon_Exercise_3
             MenuNode addCar = new("Enter Car Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Doors: "], true);
             MenuNode addScoter = new("Enter Scooter Info", ["Brand: ", "Model: ","Year: ","Weight: ","Range: "], true);
             MenuNode addTruck = new("Enter Truck Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Capacity: "], true);
-            MenuNode addMC = new("Enter Motorcycle Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Sidecar? Yes/No: "], true);
+            MenuNode addMC = new("Enter Motorcycle Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Engine CC: "], true);
             
             addCar.prev = chooseType;
             addScoter.prev = chooseType;
