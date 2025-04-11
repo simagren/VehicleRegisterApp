@@ -18,8 +18,6 @@ namespace Lexicon_Exercise_3
         {
             
         }
-
-
         public string Brand {
             get => brand;
             set => ValidateString(value, out brand, "brand");

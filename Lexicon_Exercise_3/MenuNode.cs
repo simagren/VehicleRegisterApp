@@ -8,33 +8,30 @@ namespace Lexicon_Exercise_3
 {
     internal class MenuNode
     {
-        public string HeadText;
-        public List<string> data = new List<string>();
-        public int highlightIndex = 0;
-        public int maxIndex = 0;
-        public bool allowInput = false;
-        public int id = 0;
+        private string headerText;
         private static int idCounter = 0;
-
+        private List<string> data = new List<string>();
+        public int HighlightIndex { get; set; } = 0;
+        public int NodeID { get; private set; }
+        public int MaxIndex { get; set; }
         public List<MenuNode> Next {  get; set; } = new List<MenuNode>();
-        public MenuNode? prev { get; set; }
+        public MenuNode? Prev { get; set; }
 
-        public MenuNode(string head, List<string> list, bool allowInput = false)
+        public MenuNode(string head, List<string> list)
         {
-            this.allowInput = allowInput;
-            this.HeadText = head;
+            this.headerText = head;
             this.data = list;
-            this.maxIndex = list.Count - 1;
-            id = idCounter++;
+            this.MaxIndex = list.Count - 1;
+            NodeID = idCounter++;
         }
 
         public void Print()
         {
             Console.Clear();
-            Console.WriteLine($"-- {HeadText} --");
+            Console.WriteLine($"-- {headerText} --");
             for (int i = 0; i < data.Count; i++)
             {
-                if (i == highlightIndex) 
+                if (i == HighlightIndex) 
                 {
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Black;
@@ -51,33 +48,39 @@ namespace Lexicon_Exercise_3
             Console.WriteLine("Press 'ESC' to exit program");
         }
 
+        /// <summary>
+        /// Tries to access the next node
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns>Current node if there is no next, otherwhise return next node</returns>
         public MenuNode TryGetNext(int i)
         {
             if (Next.Count == 0) return this;
             if (i >= Next.Count) return Next.First();
-            highlightIndex = 0;
+            HighlightIndex = 0;
             return Next[i];
         }
 
+        /// <summary>
+        /// Tries to access previous node
+        /// </summary>
+        /// <returns>Previous node if success, otherwise return current node</returns>
         public MenuNode TryGetPrev()
         {
-            if (prev == null)
+            if (Prev == null)
                 return this;
-            highlightIndex = 0;
-            return prev;
+            HighlightIndex = 0;
+            return Prev;
         }
 
+        /// <summary>
+        /// Update the list of data that is printed in the console
+        /// </summary>
+        /// <param name="newData"></param>
         public void UpdateData(List<string> newData)
         {
             data = newData;
-            maxIndex = data.Count - 1;
+            MaxIndex = data.Count - 1;
         }
-
-        //public void FillNode(string head, List<string> list)
-        //{
-        //    HeadText = head;
-        //    data = list;
-        //    maxIndex = list.Count-1;
-        //}
     }
 }

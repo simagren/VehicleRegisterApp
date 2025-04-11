@@ -23,32 +23,23 @@ namespace Lexicon_Exercise_3
 
         void FillVehicles()
         {
-            vehicles.Add(new Car
-            {
-                Brand = "SAAB",
+            AddVehicle(new Car{ Brand = "SAAB",
                 Model = "9000 Turbo",
                 Year = 1996,
                 Weight = 2000,
-                NumDoors = 4
-            });
+                NumDoors = 4 });
 
-            vehicles.Add(new ElectricScooter
-            {
-                Brand = "Yamaha",
+            vehicles.Add(new ElectricScooter{ Brand = "Yamaha",
                 Model = "Speedster",
                 Year = 2015,
                 Weight = 10,
-                MaxRangeInMinutes = 60
-            });
+                MaxRangeInMinutes = 60 });
 
-            vehicles.Add(new Motorcycle
-            {
-                Brand = "Yamaha",
+            vehicles.Add(new Motorcycle{ Brand = "Yamaha",
                 Model = "R9",
                 Year = 2018,
                 Weight = 600,
-                EngineCC = 600
-            });
+                EngineCC = 600 });
         }
 
         public Vehicle? GetVehicle(int index)
@@ -74,35 +65,38 @@ namespace Lexicon_Exercise_3
             switch (vehicleType)
             {
                 case VehicleType.Car:
-                    vehicle = new Car() { NumDoors = uniqueVal };
-                    //((Car)vehicle).NumDoors = uniqueVal;
-                    break;
+                    vehicle = new Car() { NumDoors = uniqueVal }; break;
                 case VehicleType.Scooter:
-                    vehicle = new ElectricScooter() { MaxRangeInMinutes= uniqueVal };
-                    //((ElectricScooter)vehicle).MaxRangeInMinutes = uniqueVal;
-                    break;
+                    vehicle = new ElectricScooter() { MaxRangeInMinutes= uniqueVal }; break;
                 case VehicleType.Truck:
-                    vehicle = new Truck() { Capacity = uniqueVal };
-                    //((Truck)vehicle).Capacity = uniqueVal;
-                    break;
+                    vehicle = new Truck() { Capacity = uniqueVal }; break;
                 case VehicleType.MC:
-                    vehicle = new Motorcycle() { EngineCC = uniqueVal };
-                    //((Motorcycle)vehicle).EngineCC = uniqueVal;
-                    break;
+                    vehicle = new Motorcycle() { EngineCC = uniqueVal }; break;
             }
             vehicle.Brand = brand;
             vehicle.Model = model;
             vehicle.Year = year;
             vehicle.Weight = weight;
-
-            vehicles.Add(vehicle);
+            AddVehicle(vehicle);
         }
 
+
+        private void AddVehicle(Vehicle vehicle)
+        {
+            if(vehicle != null)
+            {
+                vehicles.Add(vehicle);
+                NumVehicles++;
+            }
+        }
 
         public void RemoveVehicle(int index)
         {
             if(index >= 0 && index < vehicles.Count)
+            {
                 vehicles.RemoveAt(index);
+                NumVehicles--;
+            }
         }
 
         void EditVehicle(VehicleType type)

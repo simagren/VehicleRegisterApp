@@ -19,8 +19,6 @@ namespace Lexicon_Exercise_3
         enum MenuOptions { Main, View, ChooseType, Add };
         MenuOptions menuOption = MenuOptions.Main;
 
-
-
         public Application()
         {           
         }
@@ -38,7 +36,7 @@ namespace Lexicon_Exercise_3
                             Console.WriteLine("Success!");
                     }               
                     HandleNavigationInput();
-                    currentMenu.highlightIndex = menuIndex;
+                    currentMenu.HighlightIndex = menuIndex;
                 }
                 catch (ArgumentException e) 
                 {
@@ -57,25 +55,27 @@ namespace Lexicon_Exercise_3
             {
                 case ConsoleKey.UpArrow:
                     if(menuIndex > 0) menuIndex--; break;
+
                 case ConsoleKey.DownArrow:
-                    if(menuIndex < currentMenu.maxIndex) menuIndex++; break;
+                    if(menuIndex < currentMenu.MaxIndex) menuIndex++; break;
+
                 case ConsoleKey.Enter:
                     currentMenu = currentMenu.TryGetNext(menuIndex); 
                     prevMenuIndex = menuIndex;
-                    menuIndex = 0;
-                    break;
+                    menuIndex = 0; break;
+
                 case ConsoleKey.Backspace:            
                     currentMenu = currentMenu.TryGetPrev();
-                    menuIndex = 0;
-                    break;
+                    menuIndex = 0; break;
+
                 case ConsoleKey.Delete:
                     if (menuOption == MenuOptions.View) vehicleHandler.RemoveVehicle(menuIndex);
                     break;
+
                 case ConsoleKey.Escape:
-                    run = false;
-                    break;
+                    run = false; break;
             }
-            menuOption = currentMenu.id > (int)MenuOptions.Add ? MenuOptions.Add : (MenuOptions)currentMenu.id;
+            menuOption = currentMenu.NodeID > (int)MenuOptions.Add ? MenuOptions.Add : (MenuOptions)currentMenu.NodeID;
             if (menuOption == MenuOptions.View)
                 currentMenu.UpdateData(vehicleHandler.GetVehiclesAsString());
         }
@@ -87,9 +87,9 @@ namespace Lexicon_Exercise_3
             int chosenVehicle = prevMenuIndex;
             Console.CursorVisible = true;
             List<string> vehicleInput = new List<string>();
-            for (int i=0; i<=currentMenu.maxIndex; i++)
+            for (int i=0; i<=currentMenu.MaxIndex; i++)
             {
-                int cursorPos = currentMenu.data[i].Length - 1;
+                int cursorPos = vehicleHandler.NumVehicles - 1;
                 Console.SetCursorPosition(cursorPos, i + 1);           
                 vehicleInput.Add(Console.ReadLine());
             }
@@ -110,7 +110,7 @@ namespace Lexicon_Exercise_3
             out int weight, out int year, out int last)
         {
             weight = 0; year = 0; last = 0;
-            int numInputsRequired = currentMenu.maxIndex + 1;
+            int numInputsRequired = currentMenu.MaxIndex + 1;
             if (input.Count < numInputsRequired)
             {
                 int missingInputs = numInputsRequired - input.Count;
@@ -133,17 +133,17 @@ namespace Lexicon_Exercise_3
             MenuNode viewVehicles = new("Registered Vehicles", vehicleHandler.GetVehiclesAsString());
             MenuNode chooseType = new("Choose Vehicle Type", 
                 ["Car","Electric Scooter", "Truck", "Motorcycle"]);
-            MenuNode addCar = new("Enter Car Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Doors: "], true);
-            MenuNode addScoter = new("Enter Scooter Info", ["Brand: ", "Model: ","Year: ","Weight: ","Range: "], true);
-            MenuNode addTruck = new("Enter Truck Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Capacity: "], true);
-            MenuNode addMC = new("Enter Motorcycle Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Engine CC: "], true);
+            MenuNode addCar = new("Enter Car Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Doors: "]);
+            MenuNode addScoter = new("Enter Scooter Info", ["Brand: ", "Model: ","Year: ","Weight: ","Range: "]);
+            MenuNode addTruck = new("Enter Truck Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Capacity: "]);
+            MenuNode addMC = new("Enter Motorcycle Info", ["Brand: ", "Model: ", "Year: ", "Weight: ", "Engine CC: "]);
             
-            addCar.prev = chooseType;
-            addScoter.prev = chooseType;
-            addTruck.prev = chooseType;
-            addMC.prev = chooseType;
-            viewVehicles.prev = mainMenu;
-            chooseType.prev = mainMenu;
+            addCar.Prev = chooseType;
+            addScoter.Prev = chooseType;
+            addTruck.Prev = chooseType;
+            addMC.Prev = chooseType;
+            viewVehicles.Prev = mainMenu;
+            chooseType.Prev = mainMenu;
             chooseType.Next.Add(addCar);
             chooseType.Next.Add(addScoter);
             chooseType.Next.Add(addTruck);
